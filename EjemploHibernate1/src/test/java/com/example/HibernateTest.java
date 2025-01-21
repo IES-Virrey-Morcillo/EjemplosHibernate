@@ -19,16 +19,21 @@ public class HibernateTest {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Transaction tx = session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
 
-        Employee employee1 = new Employee("employee1", 23);
-        Employee employee2 = new Employee("employee2", 25);
+        Employee employee1 = new Employee("Dimitry", 22);
+        Employee employee2 = new Employee("Fran", 23);
+
+        System.out.println("Empleado antes de persistir X: " + employee1);
+        System.out.println("Empleado antes de persistir X+1: " + employee2);
 
         session.persist(employee1);
         session.persist(employee2);
 
-        tx.commit();
+        System.out.println("Empleado X: " + employee1);
+        System.out.println("Empleado X+1: " + employee2);
 
+        transaction.commit();
         session.close();
     }
 
@@ -59,9 +64,8 @@ public class HibernateTest {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Employee emp1 = new Employee("employee1", 23);
-        emp1.setId(3L);
-        emp1.setAge(24);
+        Employee emp1 = new Employee("Vita", 24);
+        emp1.setId(9L);
 
         Transaction tx = session.beginTransaction();
         session.merge(emp1);
@@ -77,9 +81,8 @@ public class HibernateTest {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
-        Employee e = new Employee("employee1", 23);
-
-        session.persist(e);
+        Employee e = new Employee();
+        e.setId(3L);
 
         System.out.println("Empleado creado para eliminar: " + e);
         session.remove(e);
